@@ -1,16 +1,31 @@
-
+.index-body{
+    background-color: rgb(61, 60, 57);
+    color: aliceblue;
+}
+h1 {
+    padding-top: 30px;
+    text-align: center;
+}
 main{
     display:flex;
     height:calc(100vh - 30px);
+    padding: 40px;
+
 }
 
 #list{
     flex:3;
-    background-color:aqua;
+    background-color:rgb(0, 0, 0);
 }
 
 #form{
     flex:2;
-    background-color: antiquewhite;
+    padding: 3%;
+    background-color: rgb(49, 46, 46);
+    color:aliceblue;
+    font-weight: bold;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
 }
+
+
 
