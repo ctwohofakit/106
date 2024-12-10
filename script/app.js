@@ -16,11 +16,21 @@ function saveTask(){
 
 
     //save to srever
-
+    $.ajax({
+        type:"POST",
+        url:"http://fsdiapi.azurewebsites.net/api/tasks/", //end point that support the post
+        data:JSON.stringify(taskTosave), //save to JASON, convery differnt program language to just text
+        contentType: "application/json", //specify we are using JSON
+        success: function(response){
+            console.log(response);
+        },
+        error: function(error){
+            console.log(error);
+        }
+    });
 
     //display the task
-    displayTask(taskTosave);
-
+    //displayTask(taskTosave);
 
     //deleteTask(taskTosave);
 
@@ -30,7 +40,7 @@ function displayTask(task){
     //display
     let syntax = `<div class="task">
     <h5>${task.title}</h5>
-    <p>${task.description}</p>
+    <p>${task.desc}</p>
         </div>
         <div><label>${task.color}</label></div>
         <div><label>${task.status}</label></div>
@@ -40,26 +50,11 @@ function displayTask(task){
         ;
     $(".list").append(syntax);
 
-
-    //table view display
-    /*let table =`
-    <table class="table table-sm table-light" id="displayTb">
-    <thead class="thead-light">
-        <tr>
-            <td>${task.title}</td>
-            <td>${task.desc}</td>
-            <td>${task.color}</td>
-            <td>${task.date}</td>
-            <td>${task.status}</td>
-            <td>${task.budget}</td>
-            <td><button class="btn btn-danger" onclick="deleteTask()";>Delete</button></td>
-        </tr>
-    </thead>
-    </table>
-    `;
-    $(".list").append(table);*/
-
 }
+
+
+
+
 
 /*
 function deleteTask(task){
@@ -82,9 +77,50 @@ function testRequest(){
 }
 
 
+function loadTask(){
+    $.ajax({
+        type: "get",
+        url: "http://fsdiapi.azurewebsites.net/api/tasks",
+        success: function(response){
+            console.log(response);
+            let data= JSON.parse(response);//converted back to javascript
+
+            //search through key element matching for display fucntion, key element is in task.js
+            // from the object returned, get only messages that were created by you
+            // tip 1. Modify the class to include your user.
+            // tip 2. use a for loop
+            // tip 3. Then an if statement
+
+            for (let i=0; i<data.length; i++){
+                let task= data[i];
+                if (task.name==="Kitic53"){
+                    displayTask(task);
+                }else{
+                    console.log("user Not Found")
+                }
+            
+            }
+            console.log(data);
+
+        }, 
+        error: function(error)
+        {
+            console.log(error);
+        }
+
+    })
+}
+
+
+
+
+
 function init(){
     console.log("task manager");
     //load data
+
+    loadTask();
+
 
     //hook the events
     $("#btnSave").click(saveTask);
